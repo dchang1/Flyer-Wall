@@ -1,6 +1,89 @@
-
+<link href="https://fonts.googleapis.com/css?family=Cookie" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css?family=Encode+Sans+Condensed" rel="stylesheet">
+<link href= "https://fonts.googleapis.com/css?family=Quicksand" rel="stylesheet">
 <style>
 /* The Modal (background) */
+html {
+  background-color: #cce6ff;
+}
+h1 {
+  background: url('https://www.muralswallpaper.co.uk/app/uploads/clean-white-brick-wall-textures-plain-820x532.jpg') 0 0 repeat-x;
+  text-shadow: -1px -2px #ffffff, 3px 3px #9999ff;
+  font-family: 'Cookie', cursive;
+  font-size: 70px;
+  margin-top: 0px;
+  margin-left: 10px;
+  margin-bottom: 4px;
+}
+h2 {
+  color: #5c5c8a;
+  font-size: 25px;
+  font-family: 'Quicksand', sans-serif;
+  margin-top: 5px;
+  margin-left: 0px;
+  margin: 0
+  text-align: left;
+  cursor: pointer;
+}
+/* The Modal (background) */
+.modal {
+    display: none; /* Hidden by default */
+    position: fixed; /* Stay in place */
+    z-index: 1; /* Sit on top */
+    padding-top: 100px; /* Location of the box */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    overflow: auto; /* Enable scroll if needed */
+    background-color: rgb(0,0,0); /* Fallback color */
+    background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+}
+
+/* Modal Content */
+.modal-content {
+    font-family: 'Quicksand', sans-serif;
+    font-size: 25px;
+    font-style: italic;
+    position: relative;
+    background-color: #fefefe;
+    margin: auto;
+    padding: 0;
+    border: 4px solid #888;
+    width: 80%;
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2),0 6px 20px 0 rgba(0,0,0,0.19);
+    -webkit-animation-name: animatetop;
+    -webkit-animation-duration: 0.4s;
+    animation-name: animatetop;
+    animation-duration: 0.4s
+}
+
+/* Add Animation */
+@-webkit-keyframes animatetop {
+    from {top:-300px; opacity:0}
+    to {top:0; opacity:1}
+}
+
+@keyframes animatetop {
+    from {top:-300px; opacity:0}
+    to {top:0; opacity:1}
+}
+
+/* The Close Button */
+.close {
+    color: #ffffff;
+    float: right;
+    font-size: 36px;
+    font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+    color: #000;
+    text-decoration: none;
+    cursor: pointer;
+}
+
 .modal {
     display: none; /* Hidden by default */
     position: fixed; /* Stay in place */
@@ -184,8 +267,8 @@ img {
  }
 </style>
 
-<!-- Trigger/Open The Modal -->
-<button id="myBtn">Add Flyer</button>
+  <!-- Trigger/Open The Modal -->
+<button id="myBtn" style="display:none">Create New</button>
 
 <!-- The Modal -->
 <div id="myModal" class="modal">
@@ -194,28 +277,28 @@ img {
   <div class="modal-content">
     <div class="modal-header">
       <span class="close">&times;</span>
-      <h2>Add Flyer</h2>
+      <h2 style="font-style:normal;"> Create New </h2>
     </div>
     <div class="modal-body">
-      <p>Some text in the Modal Body</p>
-      <p>Some other text...</p>
+      <p>Advertise your event!</p>
+      <p>Upload a flyer from your computer.</p>
     </div>
     <form action="/upload" method="post" class="modal-form" enctype='multipart/form-data'>
-  	  <input type="file" name="image" accept="image/*">
-  	  <br>
-  	  <input type="date" name="date">
-  	  <br>
-  	  <input type="text" name="password" placeholder="Enter a password"> <br>
-  	  <input type="submit" class ="modal-button">
+      <input type="file" name="image" accept="image/*">
+      <p>When will your event happen?</p>
+      <input type="date" name="date">
+      <p>Please enter a password for your event.</p>
+      <input type="password" name="password" placeholder="Enter a password"> <br>
+      <input type="submit" class ="modal-button">
     </form>
-    <div class="modal-footer">
-      <h3>Modal Footer</h3>
-    </div>
   </div>
 
-</div>
+  </div>
 
-<h>HELLO</h>
+<h1> FlyerWall
+  </h1>
+<a onclick='document.getElementById("myBtn").click()'><h2> + Create New
+</h2></a>
 {{#each images}}
 <div class="container">
   <img src='{{image}}' id="image-{{@index}}" style="top:{{y}}; left:{{x}}; width:{{width}}; height:{{height}};"/> 

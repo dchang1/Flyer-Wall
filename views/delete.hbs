@@ -1,14 +1,76 @@
+<link href="https://fonts.googleapis.com/css?family=Cookie" rel="stylesheet">
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 <style>
 
-img.center {
-    display: block;
-    margin: 0 auto;
+#container {
+	width: 95%;
+	margin: auto;
+}
+body {
+  background-color: #d4e7f7;
+  color: rgba(255, 255, 255);
+}
+
+h1 {
+  text-shadow: -1px -2px #ffffff, 3px 3px #9999ff;
+  font-family: 'Cookie';
+  font-size: 70px;
+  padding:15px;
+}
+
+h2 {
+  color:  #505762;
+}
+
+.left-half {
+	width: 60%;
+  align: center;
+  float: left;
+}
+
+.right-half {
+	width: 35%;
+  align: center;
+  float: right;
+  background-color: #a6c5d0;
+  padding: 5px;
+}
+
+img {
+   padding:1px;
+   border:1px solid #000000;
+   background-color:#000000;
+}
+
+input[type=text] {
+    width: 100%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    box-sizing: border-box;
 }
 
 </style>
 
-<h>Delete</h>
+
 {{#if error}}
 <p>ERROR</p>
 {{/if}}
-<img class="center" src="{{image}}"></img>
+<body>
+  <h1>FlyerWall</h1>
+<div id="container">
+  <div class="left-half">
+    <img src="{{image}}" style="width:100%; border:5px;" ></img>
+  </div>
+  <div class="right-half">
+    <h2> Delete Flyer </h2>
+    <p style="align:center;"> to delete this flyer, enter password you entered when uploading flyer</p>
+  <form method="post" action="/delete">
+    <input type="password" name="password">
+    <input type="text" name="base64" value={{image}} style="display:none"></input>
+    <input type="submit"></input>
+  </form>
+</div>
+</div>
+
+
+</body>
