@@ -7,7 +7,7 @@ var image = require('./routes/image')
 var fileUpload = require('express-fileupload');
 
 app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.urlencoded({limit: '5mb'}));
 app.use(fileUpload());
 
 var exphbs  = require('express-handlebars');
