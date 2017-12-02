@@ -3,10 +3,12 @@ var app = express();
 var router = express.Router();
 var bodyParser = require('body-parser');
 var path = require('path');
-
+var image = require('./routes/image')
+var fileUpload = require('express-fileupload');
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
+app.use(fileUpload());
 
 var exphbs  = require('express-handlebars');
 app.use(express.static(path.join(__dirname, 'public')));
@@ -18,6 +20,7 @@ var mongoose = require('mongoose');
 var MONGODB_URI = 'mongodb://dchang2:n3w8h5s6@ds125896.mlab.com:25896/flyerwall';
 mongoose.connect(MONGODB_URI);
 
+app.use(image);
 app.get('/', function(req, res) {
   res.render('index');
 })

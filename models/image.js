@@ -2,7 +2,7 @@ var mongoose = require('mongoose');
 
 var imageSchema = new mongoose.Schema({
   image: {type: String},
-  date: {type: Date},
+  date: {type: String},
   password: {type: String}
 });
 
