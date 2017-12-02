@@ -12,8 +12,12 @@ var fileType = require('file-type');
 router.get('/', function(req, res){
   Image.find({}, function(err, images) {
     console.log(images);
-    if(images==[]) {
-      res.render('index', {image: images[0].image});
+    if(images!=[]) {
+      var data=[]
+      for(var i=0; i<images.length; i++) {
+      	data.push(images[i].image);
+      }
+      res.render('index', {images: data});
     } else {
       res.render('index');
     }
@@ -34,10 +38,7 @@ router.post('/upload', function(req, res){
             new Jimp(req.files.image.data, (err, image)=>{
 
                 //Resize this image
-                image.resize(512, 512)
-                    //lower the quality by 90%
-                    .quality(10)
-                    .getBuffer(type.mime, (err, buffer)=>{
+                image.getBuffer(type.mime, (err, buffer)=>{
                         //Transfer image file buffer to base64 string
                         let base64Image = buffer.toString('base64');
                         let imgSrcString = "data:" + type.mime + ';base64, ' + base64Image;
