@@ -11,11 +11,14 @@ var fileType = require('file-type');
 
 router.get('/', function(req, res){
   Image.find({}, function(err, images) {
-    console.log(images);
     if(images!=[]) {
-      var data=[]
+      var data=[];
+      var windowHeight=1000;
+      console.log(Math.floor(Math.random() * (300 - 200)) + 200);
       for(var i=0; i<images.length; i++) {
-      	data.push(images[i].image);
+        var height=Math.floor(Math.random() * (300-200)) + 200;
+        var width = (images[i].width/images[i].height) * height;
+      	data.push({'image':images[i].image, 'height': height, 'width': width});
       }
       res.render('index', {images: data});
     } else {
@@ -43,7 +46,12 @@ router.post('/upload', function(req, res){
                         let base64Image = buffer.toString('base64');
                         let imgSrcString = "data:" + type.mime + ';base64, ' + base64Image;
                         //Resolve base94 string
-                        resolve(imgSrcString);
+                        let imageObject = {
+                          "image": imgSrcString,
+                          "width": image.bitmap.width,
+                          "height": image.bitmap.height
+                        }
+                        resolve(imageObject);
                     });
                 })
             });
@@ -53,7 +61,9 @@ router.post('/upload', function(req, res){
         //Return promise array
         Promise.all(promises).then(function(image) {
           var newImage = new Image({
-            image: image,
+            width: image[0].width,
+            height: image[0].height,
+            image: image[0].image,
             date: req.body.date,
             password: req.body.password
           })
