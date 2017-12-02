@@ -11,8 +11,12 @@ var fileType = require('file-type');
 
 router.get('/', function(req, res){
   Image.find({}, function(err, images) {
-    console.log(images[0].image);
-    res.render('index', {image: images[0].image});
+    console.log(images);
+    if(images==[]) {
+      res.render('index', {image: images[0].image});
+    } else {
+      res.render('index');
+    }
   })
 })
 
@@ -81,7 +85,7 @@ router.post('/delete', function(req, res){
 
 //loading up the delete page
 router.get('/delete', function(req, res){
-	res.render('delete', {image: req.query.base64})
+	res.render('delete', {image: req.query.base64, error: req.query.error})
 })
 
 
