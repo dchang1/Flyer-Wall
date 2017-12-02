@@ -29,7 +29,17 @@ router.post('/upload', function(req, res){
 })
 
 //post delete flyers
-router.post('/')
+router.post('/delete', function(req, res){
+
+	Image.find({'image' : req.body.base64, 'password'}, function(err, post){
+		if(err){
+			throw err;
+		}
+		if(post.password == req.body.password){
+			
+		}	
+	})
+})
 
 
 module.exports = router;
