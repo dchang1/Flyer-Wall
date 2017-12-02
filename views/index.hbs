@@ -87,23 +87,25 @@
 
 .container {
   position: relative;
-  contain:size;
+  width: 50%;
 }
 
 .overlay {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
+  position: relative;
+  top: 50%;
+  left: 50%;
   background: rgba(0, 0, 0, 0);
   transition: background 0.5s ease;
-  z-index: 0
+  transform: translate(-50%, -50%);
+  -ms-transform: translate(-50%, -50%);
+}
+
+.container:hover img {
+  opacity: 0.3;
 }
 
 .container:hover .overlay {
-  display: block;
-  background: rgba(0, 0, 0, .3);
+  background: rgba(0, 0, 0, .5);
 }
 
 img {
@@ -132,16 +134,17 @@ img {
 
 .button {
   position: relative;
-  width: 500px;
+  width: 200px;
   left:0;
   top: 60%;
-  text-align: center;
+  text-align: left;
   opacity: 0;
   transition: opacity .35s ease;
   text-decoration: none;
 }
 
 .remove {
+  position: relative;
   left: 100%;
   opacity: 0;
   transition: opacity .35s ease;
@@ -150,10 +153,10 @@ img {
 .remove a {
   right: 5px;
   top: 5px;
-  color: white;
+  color: black;
   position: absolute;
   text-align: right;
-  border: solid 2px white;
+  border: solid 2px black;
   font-family: "Trebuchet MS";
   padding: 2px 6px;
   z-index:1;
@@ -161,14 +164,13 @@ img {
 }
 
 .button a {
-  position:relative;
-  width: 200px;
+  position:absolute;
+  width: 100px;
   padding: 12px 48px;
-  bottom: -50px;
-  text-align: center;
-  color: white;
+  text-align: left;
+  color: black;
   font-family: "Trebuchet MS";
-  border: solid 2px white;
+  border: solid 2px black;
   z-index: 1;
   text-decoration: none;
 }
@@ -215,15 +217,14 @@ img {
 
 <h>HELLO</h>
 {{#each images}}
- <img src='{{image}}' style="display:none"/> 
 <div class="container">
-  <img src='{{image}}' style="top:{{y}}; left:{{x}}; width:{{width}}; height:{{height}};"/> 
+  <img src='{{image}}' id="image-{{@index}}" style="top:{{y}}; left:{{x}}; width:{{width}}; height:{{height}};"/> 
   <div class="overlay"></div>
   <form id="xbutton-{{@index}}" action="/xbutton" method="post" style="display:none">
-  	<input type="text" style="display:none" name="base64" value="{{this}}"></input>
+  	<input type="text" style="display:none" name="base64" value="{{image}}"></input>
   </form>
-  	<div class="remove"><a onclick="document.getElementById('xbutton-{{@index}}').submit();"> X </a></div>
-  <div class="button"><a href="#"> MORE INFO </a></div>
+  	<div class="remove" style="top:{{y}}; left:{{x}}; width:{{width}}"><a onclick="document.getElementById('xbutton-{{@index}}').submit();"> X </a></div>
+  <div class="button" style="top:{{y}}; left:{{x}};"><a> MORE INFO </a></div>
 </div>
 {{/each}}
 
