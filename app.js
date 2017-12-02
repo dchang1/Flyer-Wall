@@ -15,8 +15,12 @@ app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', '.hbs');
 
 var mongoose = require('mongoose');
-var MONGODB_URI = mongodb://dchang2:n3w8h5s6@ds125896.mlab.com:25896/flyerwall
+var MONGODB_URI = 'mongodb://dchang2:n3w8h5s6@ds125896.mlab.com:25896/flyerwall';
 mongoose.connect(MONGODB_URI);
+
+app.get('/', function(req, res) {
+  res.render('index');
+})
 
 app.listen(3000, function () {
   console.log('Express listening at', 3000);
