@@ -7,6 +7,8 @@ var multer = require('multer');
 var upload = multer({dest: 'uploads/'});
 var Promise = require('bluebird')
 var fileType = require('file-type');
+
+
 router.get('/', function(req, res){
   Image.find({}, function(err, images) {
     console.log(images[0].image);
@@ -58,19 +60,29 @@ router.post('/upload', function(req, res){
 
 })
 
+//clicking the x button to delete
+router.post('/xbutton', function(req, res){
+	var message = encodeURIComponent(req.body.base64);
+	res.redirect('/delete/?base64=' + message);
+})
+
 //post delete flyers
-/*
 router.post('/delete', function(req, res){
 
-	Image.find({'image' : req.body.base64, 'password'}, function(err, post){
+	Image.remove({'image' : req.body.base64, 'password' : req.body.password}, function(err){
 		if(err){
-			throw err;
-		}
-		if(post.password == req.body.password){
-
+			var message = encodeURIComponent(req.body.base64)
+			res.redirect('/delete/?base64=' + message + '&error=' + 'error')
+		} else {
+			res.redirect('/');
 		}
 	})
-})*/
+})
+
+//loading up the delete page
+router.get('/delete', function(req, res){
+	res.render('delete', {image: req.query.base64})
+})
 
 
 module.exports = router;
