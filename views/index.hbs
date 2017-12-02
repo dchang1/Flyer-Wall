@@ -220,7 +220,10 @@ img {
 <div class="container">
   <img src='{{this}}' />
   <div class="overlay"></div>
-  <div class="remove"><a href="#"> X </a></div>
+  <form id="xbutton-{{@index}}" action="/xbutton" method="post" style="display:none">
+  	<input type="text" style="display:none" name="base64" value="{{this}}"></input>
+  </form>
+  	<div class="remove"><a onclick="document.getElementById('xbutton-{{@index}}').submit();"> X </a></div>
   <div class="button"><a href="#"> MORE INFO </a></div>
 </div>
 {{/each}}
