@@ -87,9 +87,7 @@
 
 .container {
   position: relative;
-  margin-top: 50px;
-  width: 500px;
-  height: 300px;
+  contain:size;
 }
 
 .overlay {
@@ -100,6 +98,7 @@
   height: 100%;
   background: rgba(0, 0, 0, 0);
   transition: background 0.5s ease;
+  z-index: 0
 }
 
 .container:hover .overlay {
@@ -110,8 +109,7 @@
 img {
   position: absolute;
   left: 0;
-  height: 300px;
-  width: 500px;
+  max-width: 500px;
 }
 
 .title {
@@ -217,8 +215,9 @@ img {
 
 <h>HELLO</h>
 {{#each images}}
+ <img src='{{image}}' style="display:none"/> 
 <div class="container">
-  <img src='{{this}}' />
+  <img src='{{image}}' style="top:{{y}}; left:{{x}}; width:{{width}}; height:{{height}};"/> 
   <div class="overlay"></div>
   <form id="xbutton-{{@index}}" action="/xbutton" method="post" style="display:none">
   	<input type="text" style="display:none" name="base64" value="{{this}}"></input>
