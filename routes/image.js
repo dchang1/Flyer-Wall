@@ -14,11 +14,33 @@ router.get('/', function(req, res){
     if(images!=[]) {
       var data=[];
       var windowHeight=1000;
-      console.log(Math.floor(Math.random() * (300 - 200)) + 200);
+      var distances = [];
       for(var i=0; i<images.length; i++) {
         var height=Math.floor(Math.random() * (300-200)) + 200;
         var width = (images[i].width/images[i].height) * height;
-      	data.push({'image':images[i].image, 'height': height, 'width': width});
+        if(i==0) {
+          var coordinates = [10, 50];
+          var nextCoordinateX = [coordinates[0] + width + 10, coordinates[1] + 10, (coordinates[0] + width + 10)*(coordinates[0] + width + 10) + (coordinates[1] + 10)*(coordinates[1] + 10)];
+          var nextCoordinateY = [coordinates[0], coordinates[1] + height + 10, (coordinates[0])*(coordinates[0]) + (coordinates[1] + height + 10)*(coordinates[1] + height + 10)];
+          distances.push(nextCoordinateY);
+          distances.push(nextCoordinateX);
+        } else {
+          var shortest = distances[0][2];
+          var index=0;
+          for(var j=1; j<distances.length; j++) {
+            if(shortest > distances[j][2]) {
+              shortest = distances[j][2];
+              index = j;
+            }
+          }
+          var coordinates = [distances[index][0], distances[index][1]];
+          distances.splice(index, 1);
+          var nextCoordinateX = [coordinates[0] + width + 10, coordinates[1] + 10, (coordinates[0] + width + 10)*(coordinates[0] + width + 10) + (coordinates[1] + 10)*(coordinates[1] + 10)];
+          var nextCoordinateY = [coordinates[0], coordinates[1] + height + 10, (coordinates[0])*(coordinates[0]) + (coordinates[1] + height + 10)*(coordinates[1] + height + 10)];
+          distances.push(nextCoordinateY);
+          distances.push(nextCoordinateX);
+        }
+      	data.push({'image':images[i].image, 'height': height, 'width': width, 'x': coordinates[0], 'y': coordinates[1]});
       }
       res.render('index', {images: data});
     } else {
