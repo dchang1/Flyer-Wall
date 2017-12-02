@@ -21,14 +21,14 @@ router.get('/', function(req, res){
         if(i==0) {
           var coordinates = [10, 50];
           var nextCoordinateX = [coordinates[0] + width + 10, coordinates[1] + 10, (coordinates[0] + width + 10)*(coordinates[0] + width + 10) + (coordinates[1] + 10)*(coordinates[1] + 10)];
-          var nextCoordinateY = [coordinates[0], coordinates[1] + height + 10, (coordinates[0])*(coordinates[0]) + (coordinates[1] + height + 10)*(coordinates[1] + height + 10)];
+          var nextCoordinateY = [coordinates[0]+10, coordinates[1] + height + 10, (coordinates[0])*(coordinates[0]) + (coordinates[1] + height + 10)*(coordinates[1] + height + 10)];
           distances.push(nextCoordinateY);
           distances.push(nextCoordinateX);
         } else {
           var shortest = distances[0][2];
           var index=0;
           for(var j=1; j<distances.length; j++) {
-            if(shortest > distances[j][2]) {
+            if(shortest > distances[j][2] && (distances[j][1] + height < windowHeight)) {
               shortest = distances[j][2];
               index = j;
             }
@@ -36,7 +36,7 @@ router.get('/', function(req, res){
           var coordinates = [distances[index][0], distances[index][1]];
           distances.splice(index, 1);
           var nextCoordinateX = [coordinates[0] + width + 10, coordinates[1] + 10, (coordinates[0] + width + 10)*(coordinates[0] + width + 10) + (coordinates[1] + 10)*(coordinates[1] + 10)];
-          var nextCoordinateY = [coordinates[0], coordinates[1] + height + 10, (coordinates[0])*(coordinates[0]) + (coordinates[1] + height + 10)*(coordinates[1] + height + 10)];
+          var nextCoordinateY = [coordinates[0]+10, coordinates[1] + height + 10, (coordinates[0])*(coordinates[0]) + (coordinates[1] + height + 10)*(coordinates[1] + height + 10)];
           distances.push(nextCoordinateY);
           distances.push(nextCoordinateX);
         }
