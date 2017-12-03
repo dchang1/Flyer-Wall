@@ -35,6 +35,11 @@ router.get('/', function(req, res){
           }
           var coordinates = [distances[index][0], distances[index][1]];
           distances.splice(index, 1);
+          for(var j=0; j<distances.length; j++) {
+            if(distances[j][0] - coordinates[0] < 200 && distances[j][1] - coordinates[1] < 200) {
+              distances.splice(j, 1);
+            }
+          }
           var nextCoordinateX = [coordinates[0] + width + 10, coordinates[1] + 10, (coordinates[0] + width + 10)*(coordinates[0] + width + 10) + (coordinates[1] + 10)*(coordinates[1] + 10)];
           var nextCoordinateY = [coordinates[0]+10, coordinates[1] + height + 10, (coordinates[0])*(coordinates[0]) + (coordinates[1] + height + 10)*(coordinates[1] + height + 10)];
           distances.push(nextCoordinateY);
@@ -63,6 +68,7 @@ router.post('/upload', function(req, res){
             new Jimp(req.files.image.data, (err, image)=>{
 
                 //Resize this image
+                image.quality(20);
                 image.getBuffer(type.mime, (err, buffer)=>{
                         //Transfer image file buffer to base64 string
                         let base64Image = buffer.toString('base64');
